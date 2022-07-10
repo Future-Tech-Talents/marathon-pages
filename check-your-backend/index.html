@@ -1,0 +1,158 @@
+<html>
+<head>
+    <title>Tool for testing your marathon backend</title>
+    <style>
+        * {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-weight: 300;
+        }
+
+        body {
+            background: #e3f7ff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .row {
+            display: flex;
+            height: 100vh;
+            position: relative;
+        }
+
+        .sides {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            outline: rgba(45, 43, 40, 0.51) 1px solid;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 15px;
+            height: 90%;
+        }
+
+        input, button {
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+        }
+
+        .output-box {
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            color: #2a363d;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="row">
+    <div class="sides inputs-box">
+        <label for="host-address">Укажи адрес своего сервера (но замени https на http в начале)</label>
+        <input type="text" required="true" placeholder="http://Backend-Full.ivashev-marathon.repl.co" id="host-address">
+
+        <label for="name-input">Заполни поля, чтобы отправить их на свой сервер</label>
+        <input type="text" placeholder="Сергей" id="name-input">
+        <input type="number" placeholder="27" id="age-input">
+        <input type="text" placeholder="sergey_guru_uru@mail.cc" id="email-input">
+
+
+        <button id="get-data-btn">
+            Получить данные
+        </button>
+        <button id="send-data-btn">
+            Отправить данные
+        </button>
+    </div>
+    <div id="output-box" class="sides output-box">
+        <p>Здесь будут данные с сервера...</p>
+    </div>
+</div>
+<script>
+    const hostAddressInput = document.getElementById("host-address");
+    const nameInput = document.getElementById("name-input");
+    const ageInput = document.getElementById("age-input");
+    const emailInput = document.getElementById("email-input");
+    const getDataBtn = document.getElementById("get-data-btn");
+    const sendDataBtn = document.getElementById("send-data-btn");
+    const outputBox = document.getElementById("output-box");
+
+    const printResult = (outputBox, text) => {
+        outputBox.innerHTML = text;
+    }
+
+    const getHost = () => {
+        let value = hostAddressInput.value;
+        if (!value) {
+            alert("Все поля обязательные")
+            return null;
+        }
+        return value;
+    }
+
+    const getData = () => {
+        const value = getHost();
+        if (!value) return;
+
+        return fetch(`${value}/find`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    throw new Error("check network page");
+                }
+            })
+            .then(result => {
+                printResult(outputBox, JSON.stringify(result));
+            });
+    }
+
+    const sendData = () => {
+        const value = getHost();
+        if (!value) return;
+
+
+        let reqPayload = {
+            name: nameInput.value,
+            age: Number(ageInput.value),
+            email: emailInput.value,
+        };
+
+        if (!reqPayload.name || !reqPayload.age || !reqPayload.email) {
+            alert("Все поля обязательные")
+            return;
+        }
+
+        return fetch(`${value}/save`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(reqPayload)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text()
+                } else {
+                    throw new Error("check network page");
+                }
+            })
+            .then(result => {
+                printResult(outputBox, result);
+            });
+
+    }
+
+    getDataBtn.addEventListener("click", function () {
+        getData();
+    });
+    sendDataBtn.addEventListener("click", function () {
+        sendData().then(getData);
+    });
+
+
+</script>
+</body>
+</html>
