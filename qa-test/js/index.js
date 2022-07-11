@@ -26,19 +26,25 @@ $(document).ready(function() {
       return
     }
 
-    if (nameInput.length > 20) {
+    if (nameInput.val().length > 20) {
       nameErrorLabel.removeClass('hidden')
+
+      return
     }
 
     button.addClass('loading')
 
     $.post('https://backend.marathon.ivashev.com/save', {
       name: nameInput.val(),
-      //age: ageInput.val(),
+      age: ageInput.val(),
       email: emailInput.val(),
     })
       .done(function () {
         alert('Данные сохранены')
+
+        nameInput.val('')
+        ageInput.val('')
+        emailInput.val('')
       })
       .fail(function () {
         alert('Ошибка при сохранении данных')

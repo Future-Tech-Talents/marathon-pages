@@ -1,0 +1,38 @@
+* {
+  font-family: 'Inter', sans-serif;
+  color: #444444;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  box-shadow: none;
+  display: block;
+}
+
+button {
+  border: none;
+}
+
+.page-container {
+  max-width: 700px;
+  padding: 60px 30px;
+  margin: 0 auto;
+}
+
+.loader {
+  display: none;
+}
+
+.loading .loader {
+  display: block;
+}
+
+.loading .table {
+  display: none;
+}
