@@ -15,12 +15,17 @@
 <div class="page-container">
     <div class="sides inputs-box">
         <label for="host-address">Укажи адрес своего сервера (но замени https на http в начале)</label>
+        <br />
+        <br />
         <input type="text" required="true" placeholder="http://Backend-Full.ivashev-marathon.repl.co" id="host-address">
-
+        <br />
+        <br />
         <label for="name-input">Заполни поля, чтобы отправить их на свой сервер</label>
-        <input type="text" placeholder="Сергей" id="name-input">
-        <input type="number" placeholder="27" id="age-input">
-        <input type="text" placeholder="sergey_guru_uru@mail.cc" id="email-input">
+        <br />
+        <br />
+        <input type="text" placeholder="Имя" id="name-input">
+        <input type="number" placeholder="Возраст" id="age-input">
+        <input type="text" placeholder="Email" id="email-input">
 
 
         <button id="get-data-btn">
@@ -30,7 +35,7 @@
             Отправить данные
         </button>
     </div>
-    <div id="output-box" class="sides output-box">
+    <div id="output-box" class="content-container">
         <p>Здесь будут данные с сервера...</p>
     </div>
 </div>
