@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tool for testing your marathon backend</title>
+    <title>Сайт для проверки бекенда</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -18,6 +18,11 @@
         <br />
         <br />
         <input type="text" required="true" placeholder="http://Backend-Full.ivashev-marathon.repl.co" id="host-address">
+        <button id="get-data-btn">
+            Получить данные
+        </button>
+        <br />
+        <br />
         <br />
         <br />
         <label for="name-input">Заполни поля, чтобы отправить их на свой сервер</label>
@@ -26,11 +31,6 @@
         <input type="text" placeholder="Имя" id="name-input">
         <input type="number" placeholder="Возраст" id="age-input">
         <input type="text" placeholder="Email" id="email-input">
-
-
-        <button id="get-data-btn">
-            Получить данные
-        </button>
         <button id="send-data-btn">
             Отправить данные
         </button>
@@ -39,6 +39,7 @@
         <p>Здесь будут данные с сервера...</p>
     </div>
 </div>
+<div id="loader" class="loader hidden">Загрузка...</div>
 <script src="js/index.js"></script>
 </body>
 </html>

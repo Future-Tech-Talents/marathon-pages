@@ -71,13 +71,13 @@ input {
 button {
   width: 200px;
   height: 50px;
-  border: 1px solid #6E51E0;
+  /*border: 1px solid #6E51E0;*/
   border-radius: 18px;
-  background: white;
+  background: #6E51E0;
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
-  color: #6E51E0;
+  color: white;
   margin-right: 20px;
 }
 
@@ -122,3 +122,29 @@ button {
   pointer-events: none;
 }
 
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black
+}
+
+.loader.hidden {
+  display: none;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table td, .table th {
+  border: 1px solid #888888;
+  padding: 5px;
+}

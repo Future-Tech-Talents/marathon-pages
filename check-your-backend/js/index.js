@@ -5,6 +5,7 @@ const emailInput = document.getElementById("email-input");
 const getDataBtn = document.getElementById("get-data-btn");
 const sendDataBtn = document.getElementById("send-data-btn");
 const outputBox = document.getElementById("output-box");
+const loader = document.getElementById('loader')
 
 const printResult = (outputBox, text) => {
   outputBox.innerHTML = text;
@@ -13,32 +14,72 @@ const printResult = (outputBox, text) => {
 const getHost = () => {
   let value = hostAddressInput.value;
   if (!value) {
-    alert("Все поля обязательные")
+    alert("Укажи адрес своего сервера")
     return null;
   }
   return value;
 }
 
+const showLoader = () => loader.classList.remove('hidden')
+const hideLoader = () => loader.classList.add('hidden')
+
+
 const getData = () => {
   const value = getHost();
   if (!value) return;
+
+  showLoader()
 
   return fetch(`${value}/find`)
     .then(response => {
       if (response.ok) {
         return response.json()
       } else {
+        alert('Произошла ошибка')
+
         throw new Error("check network page");
       }
     })
     .then(result => {
-      printResult(outputBox, JSON.stringify(result));
-    });
+      printResult(outputBox, `
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Имя</th>
+              <th>Возраст</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${
+              result.map((item) => {
+                const { name, email, age } = item
+                
+                return (`
+                  <tr>
+                    <td>
+                    ${name}
+                    </td>
+                    <td>
+                    ${age}
+                    </td>
+                    <td>
+                    ${email}
+                    </td>
+                  </tr>
+                `)
+              }).join('')
+            }
+          </tbody>
+        </table>
+      `);
+    })
+    .finally(() => hideLoader())
 }
 
 const sendData = () => {
-  const value = getHost();
-  if (!value) return;
+  const host = getHost();
+  if (!host) return;
 
 
   let reqPayload = {
@@ -48,11 +89,11 @@ const sendData = () => {
   };
 
   if (!reqPayload.name || !reqPayload.age || !reqPayload.email) {
-    alert("Все поля обязательные")
+    alert("Нужно заполнить все поля")
     return;
   }
 
-  return fetch(`${value}/save`, {
+  return fetch(`${host}/save`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -68,7 +109,9 @@ const sendData = () => {
     })
     .then(result => {
       printResult(outputBox, result);
-    });
+    })
+    .finally(() => hideLoader());
+
 
 }
 
