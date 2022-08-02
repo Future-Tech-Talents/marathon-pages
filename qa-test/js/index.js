@@ -20,11 +20,11 @@ $(document).ready(function() {
   button.click(function () {
     console.log(nameInput.value, ageInput.value, emailInput.value)
 
-    if (Number(ageInput.val()) < 18) {
-      ageErrorLabel.removeClass('hidden')
-
-      return
-    }
+    //if (Number(ageInput.val()) < 18) {
+    //  ageErrorLabel.removeClass('hidden')
+    //
+    //  return
+    //}
 
     if (nameInput.val().length > 20) {
       nameErrorLabel.removeClass('hidden')
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
     $.post('https://backend.marathon.ivashev.com/save', {
       name: nameInput.val(),
-      age: ageInput.val(),
+      age: "", // ageInput.val(),
       email: emailInput.val(),
     })
       .done(function () {
