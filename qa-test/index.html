@@ -26,16 +26,19 @@
     <div class="input-container">
       <input type="text" id="name" class="input" placeholder="Имя" />
       <div id="nameError" class="error hidden">Имя не должно быть длиннее 20 символов</div>
+      <div id="nameErrorEmpty" class="error hidden">Поле должно быть заполнено</div>
     </div>
 
     <div class="input-container">
       <input type="number" id="age" class="input" placeholder="Возраст" />
       <div id="ageError" class="error hidden">Возраст не должен быть меньше чем 18</div>
+      <div id="ageErrorEmpty" class="error hidden">Поле должно быть заполнено</div>
     </div>
 
     <div class="input-container">
       <input type="text" id="email" class="input" placeholder="E-mail" />
-      <div id="emailError" class="error hidden">error</div>
+      <div id="emailError" class="error hidden">E-mail введен некорректно</div>
+      <div id="emailErrorEmpty" class="error hidden">Поле должно быть заполнено</div>
     </div>
 
     <button id="button" class="button">
