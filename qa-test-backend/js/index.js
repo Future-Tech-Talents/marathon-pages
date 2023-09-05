@@ -4,7 +4,12 @@ $(document).ready(function() {
   $.get('https://backend.marathon.ivashev.com/find', function (data) {
     $("#container").removeClass('loading')
 
-    data.forEach(function(item) {
+    const indexToSlice = data.findIndex(function(item) {
+      return item.name === 'test' && item.email === 'andrew@ivashev.com'
+    })
+
+
+    data.slice(0, indexToSlice).forEach(function(item) {
       tableBody.append(
         `
           <tr>
